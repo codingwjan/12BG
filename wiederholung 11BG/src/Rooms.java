@@ -1,16 +1,14 @@
 public class Rooms {
 
-        private static String name;
-        private static int count;
-        private static boolean hasSink;
+    private static String name;
+    private static int count;
+    private static boolean hasSink;
 
-        public Rooms(String name, int count, boolean hasSink) {
-            this.name = name;
-            this.count = count;
-            this.hasSink = hasSink;
-            System.out.println("Room name: " + name + "\n" + "Room count: " + count + "\n" + "Room has sink: " + hasSink);
-        }
-
+    public Rooms(String name, int count, boolean hasSink) {
+        this.name = name;
+        this.count = count;
+        this.hasSink = hasSink;
+    }
 
 
     public static String getName() {
