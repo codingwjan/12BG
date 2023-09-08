@@ -6,7 +6,8 @@ public class Computerraum extends Rooms{
         this.pcCount = pcCount;
         System.out.println("Computerraum created");
         if (count > pcCount) {
-            System.out.println("Warning - more seats than PCs");
+            //make a system.out.println but in red
+            System.out.println("\u001B[31m" + "Error: Seat count is bigger than PC count" + "\u001B[0m");
         }
     }
 
