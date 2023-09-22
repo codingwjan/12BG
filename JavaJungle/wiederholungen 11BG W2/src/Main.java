@@ -1,12 +1,11 @@
+import org.prin.page6.Worker;
+
+
 public class Main {
     public static void main(String[] args) {
-        Employee melitta = new Employee(4711, "Melitta", "Jacobs-Dallmayr", "03.07.2006");
-        EmploymentContract melittaContract = new EmploymentContract(melitta.ID, "Coffee Making", 4000);
+        Company company = new Company();
+        company.addWorker(new Worker(1, "John", "Smith", "1000"));
 
-        System.out.println("Employee ID: " + melitta.ID);
-        System.out.println("Name: " + melitta.firstName + " " + melitta.lastName);
-        System.out.println("Birthdate: " + melitta.birthDate);
-        System.out.println("Job Description: " + melittaContract.jobDescription);
-        System.out.println("Monthly Salary: " + melittaContract.monthlySalary);
+        System.out.println(company.searchWorker(1).getVorname());
     }
 }
