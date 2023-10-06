@@ -16,7 +16,7 @@ public class Konto {
     }
 
     public boolean auszahlen(Double betrag) {
-        if (this.kontostand - betrag >= 1) {
+        if (this.kontostand - betrag >= 1 && betrag > 0) {
             this.kontostand -= betrag;
             return true;
         }
