@@ -1,0 +1,18 @@
+ASCII-Code steht für "American Standard Code for Information Interchange".
+Es handelt sich um eine Zeichencodierung, die auf dem lateinischen Alphabet basiert.
+Der Standard ASCII-Code verwendet 7 Bits, um 128 eindeutige Zeichen darzustellen.
+Diese umfassen englische Buchstaben (sowohl Groß- als auch Kleinbuchstaben), Ziffern (0-9), Steuerzeichen (wie Tabulator und Zeilenumbruch) und einige Sonderzeichen und Symbole.
+
+
+Steuerzeichen:
+Bereich: 0 bis 31 und 127.
+Diese Zeichen dienen zur Steuerung von Peripheriegeräten wie Druckern oder zur Steuerung der Datenübertragung.
+Sonderzeichen:
+Bereich: 32 bis 47, 58 bis 64, 91 bis 96, und 123 bis 126.
+Diese umfassen Zeichen wie Leerzeichen, Satzzeichen und Symbole.
+Großbuchstaben (A bis Z):
+Bereich: 65 bis 90.
+Kleinbuchstaben (a bis z):
+Bereich: 97 bis 122.
+Ziffern (0 bis 9):
+Bereich: 48 bis 57.
