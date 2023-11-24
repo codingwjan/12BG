@@ -1,8 +1,10 @@
 public class PasswordValidator {
 
     public static void main(String[] args) {
+        String password = PasswordGenerator.generatePassword(20);
         // Beispiel für die Verwendung der pruefen-Methode
-        boolean isValid = pruefen("A1b!2c3d", 8, 12);
+        boolean isValid = pruefen(password, 8, 99);
+        System.out.println("Das password ist: " + password);
         System.out.println("Das Passwort ist gültig: " + isValid);
     }
 
