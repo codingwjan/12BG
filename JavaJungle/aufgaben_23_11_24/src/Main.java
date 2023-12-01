@@ -1,17 +1,21 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
-public class Main {
-    public static void main(String[] args) {
-        // Press Opt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+public class Main
+{
+    public static void main(String[] args)
+    {
+        Shop shop = new Shop();
+        shop.erzeugenTestliste();
+        shop.ausgebenTestliste();
 
-        // Press Ctrl+R or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        shop.bestellen(4711, 100);
+        shop.bestellen(4766, 200);
 
-            // Press Ctrl+D to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Cmd+F8.
-            System.out.println("i = " + i);
-        }
+        // Implement getErsterKunde() and getLetzterKunde()
+        Kunde ersterKunde = shop.getErsterKunde();
+        Kunde letzterKunde = shop.getLetzterKunde();
+
+        System.out.println("Erster Kunde: " + ersterKunde.getNummer() + " " + ersterKunde.getNachname());
+        System.out.println("Letzter Kunde: " + letzterKunde.getNummer() + " " + letzterKunde.getNachname());
+
+        System.out.println("Umsatz: " + shop.getUmsatz() + "€"); // Gibt 300 zurück
     }
 }

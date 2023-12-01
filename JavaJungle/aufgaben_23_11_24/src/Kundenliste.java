@@ -1,36 +1,32 @@
-public class Kundenliste
+import java.util.Iterator;
+
+public class Kundenliste implements Iterable<Kunde>
 {
-    Kunde erster = null; //Referenz (Verweis) auf den ersten Kunden in der Liste
     private int anzahl = 0;
+    private Kunde erster;
 
-    //diese Methode existiert nur fuer Testzwecke und kann spaeter entfernt werden
-    public void erzeugenTestliste()
+    public Kundenliste()
     {
-        Kunde kunde1 = new Kunde(4711, "Meier");
-        Kunde kunde2 = new Kunde(4766, "Lehmann");
-        Kunde kunde3 = new Kunde(4722, "Schulze");
-        erster = kunde1;
-        kunde1.setNachfolger(kunde2);
-        kunde2.setNachfolger(kunde3);
-
     }
 
-    //diese Methode existiert nur fuer Testzwecke und kann spaeter entfernt werden
-    public void ausgebenTestliste()
+    public Kunde getErster()
     {
-        if(erster == null)
+        return erster;
+    }
+
+    public Kunde getLetzter()
+    {
+        if (erster == null)
         {
-            return;
+            return null;
         }
 
-        Kunde kunde = erster;
-
-        do
+        Kunde aktueller = erster;
+        while (aktueller.getNachfolger() != null)
         {
-            System.out.println(kunde.getNummer() + " " + kunde.getNachname());
-            kunde = kunde.getNachfolger();
+            aktueller = aktueller.getNachfolger();
         }
-        while(kunde != null);
+        return aktueller;
     }
 
     public int getAnzahl()
@@ -38,31 +34,52 @@ public class Kundenliste
         return anzahl;
     }
 
-    public void einfuegenAnfang(Kunde kunde)
+    @Override
+    public Iterator<Kunde> iterator()
     {
-        if (erster == null)
+        return new KundenlisteIterator(erster);
+    }
+
+    private class KundenlisteIterator implements Iterator<Kunde>
+    {
+        private Kunde aktueller;
+
+        public KundenlisteIterator(Kunde erster)
         {
-            erster = kunde;
+            aktueller = erster;
         }
-        else
+
+        @Override
+        public boolean hasNext()
         {
+            return aktueller != null;
+        }
+
+        @Override
+        public Kunde next()
+        {
+            Kunde kunde = aktueller;
+            aktueller = aktueller.getNachfolger();
+            return kunde;
+        }
+    }
+
+    public void einfuegenAnfang(Kunde kunde) {
+        if (erster == null) {
+            erster = kunde;
+        } else {
             kunde.setNachfolger(erster);
             erster = kunde;
         }
         anzahl++;
     }
 
-    public void einfuegenEnde(Kunde kunde)
-    {
-        if (erster == null)
-        {
+    public void einfuegenEnde(Kunde kunde) {
+        if (erster == null) {
             erster = kunde;
-        }
-        else
-        {
+        } else {
             Kunde aktueller = erster;
-            while (aktueller.getNachfolger() != null)
-            {
+            while (aktueller.getNachfolger() != null) {
                 aktueller = aktueller.getNachfolger();
             }
             aktueller.setNachfolger(kunde);
@@ -70,11 +87,9 @@ public class Kundenliste
         anzahl++;
     }
 
-    public Kunde suchen(int kundennummer)
-    {
+    public Kunde suchen(int kundennummer) {
         Kunde aktueller = erster;
-        while (aktueller != null && aktueller.getNummer() != kundennummer)
-        {
+        while (aktueller != null && aktueller.getNummer() != kundennummer) {
             aktueller = aktueller.getNachfolger();
         }
         return aktueller;
