@@ -1,74 +1,54 @@
-import java.util.Iterator;
-
-public class Kundenliste implements Iterable<Kunde>
-{
+public class Kundenliste {
+    private Kunde erster = null;
     private int anzahl = 0;
-    private Kunde erster;
 
-    public Kundenliste()
-    {
+    public void erzeugenTestliste() {
+        Kunde kunde1 = new Kunde(4711, "Meier");
+        Kunde kunde2 = new Kunde(4766, "Lehmann");
+        Kunde kunde3 = new Kunde(4722, "Schulze");
+        erster = kunde1;
+        kunde1.setNachfolger(kunde2);
+        kunde2.setNachfolger(kunde3);
+        kunde1.setVorgaenger(null);
+        kunde2.setVorgaenger(kunde1);
+        kunde3.setVorgaenger(kunde2);
+        System.out.println("Anzahl: " + getAnzahl());
+        einfuegenAnfang(new Kunde(4712, "Meyer"));
+        System.out.println("Anzahl: " + getAnzahl());
+        einfuegenEnde(new Kunde(4713, "Mayer"));
+        System.out.println("Anzahl: " + getAnzahl());
+        System.out.println(suchen(4712).getNachname());
+        System.out.println(loeschen(4712));
+        System.out.println(suchen(4712));
+        System.out.println("Anzahl: " + getAnzahl());
     }
 
-    public Kunde getErster()
-    {
-        return erster;
-    }
-
-    public Kunde getLetzter()
-    {
-        if (erster == null)
-        {
-            return null;
+    public void ausgebenTestliste() {
+        if (erster == null) {
+            return;
         }
 
-        Kunde aktueller = erster;
-        while (aktueller.getNachfolger() != null)
-        {
-            aktueller = aktueller.getNachfolger();
+        Kunde kunde = erster;
+
+        do {
+            System.out.println(kunde.getNummer() + " " + kunde.getNachname());
+            kunde = kunde.getNachfolger();
         }
-        return aktueller;
+        while (kunde != null);
     }
 
-    public int getAnzahl()
-    {
+    public int getAnzahl() {
         return anzahl;
-    }
-
-    @Override
-    public Iterator<Kunde> iterator()
-    {
-        return new KundenlisteIterator(erster);
-    }
-
-    private class KundenlisteIterator implements Iterator<Kunde>
-    {
-        private Kunde aktueller;
-
-        public KundenlisteIterator(Kunde erster)
-        {
-            aktueller = erster;
-        }
-
-        @Override
-        public boolean hasNext()
-        {
-            return aktueller != null;
-        }
-
-        @Override
-        public Kunde next()
-        {
-            Kunde kunde = aktueller;
-            aktueller = aktueller.getNachfolger();
-            return kunde;
-        }
     }
 
     public void einfuegenAnfang(Kunde kunde) {
         if (erster == null) {
             erster = kunde;
+            kunde.setNachfolger(null);
+            kunde.setVorgaenger(null);
         } else {
             kunde.setNachfolger(erster);
+            erster.setVorgaenger(kunde);
             erster = kunde;
         }
         anzahl++;
@@ -77,12 +57,15 @@ public class Kundenliste implements Iterable<Kunde>
     public void einfuegenEnde(Kunde kunde) {
         if (erster == null) {
             erster = kunde;
+            kunde.setNachfolger(null);
+            kunde.setVorgaenger(null);
         } else {
             Kunde aktueller = erster;
             while (aktueller.getNachfolger() != null) {
                 aktueller = aktueller.getNachfolger();
             }
             aktueller.setNachfolger(kunde);
+            kunde.setVorgaenger(aktueller);
         }
         anzahl++;
     }
@@ -99,6 +82,9 @@ public class Kundenliste implements Iterable<Kunde>
         if (erster == null) {
             return false;
         } else if (erster.getNummer() == kundennummer) {
+            if (erster.getNachfolger() != null) {
+                erster.getNachfolger().setVorgaenger(null);
+            }
             erster = erster.getNachfolger();
             anzahl--;
             return true;
@@ -110,7 +96,12 @@ public class Kundenliste implements Iterable<Kunde>
             if (aktueller.getNachfolger() == null) {
                 return false;
             } else {
-                aktueller.setNachfolger(aktueller.getNachfolger().getNachfolger());
+                Kunde vorgaenger = aktueller.getNachfolger().getVorgaenger();
+                if (vorgaenger != null) {
+                    vorgaenger.setNachfolger(aktueller.getNachfolger().getNachfolger());
+                }
+                aktueller.getNachfolger().setVorgaenger(null);
+                aktueller.setNachfolger(null);
                 anzahl--;
                 return true;
             }

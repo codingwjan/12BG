@@ -1,54 +1,47 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Kunde
 {
-    private int nummer;
-    private String nachname;
-    private Kunde nachfolger;
+	private int nummer;
+	private String nachname;
+	private Kunde vorgaenger; //Referenz auf den vorgaengerden Kunden definieren
+	private Kunde nachfolger; //Referenz auf den nachfolgenden Kunden definieren
 
-    public Kunde(int nummer, String nachname)
-    {
-        this.nummer = nummer;
-        this.nachname = nachname;
-    }
+	public Kunde(int nummer, String nachname)
+	{
+		this.nummer = nummer;
+		this.nachname = nachname;
+	}
 
-    public int getNummer()
-    {
-        return nummer;
-    }
+	public int getNummer()
+	{
+		return nummer;
+	}
 
-    public String getNachname()
-    {
-        return nachname;
-    }
+	public String getNachname()
+	{
+		return nachname;
+	}
 
-    public void setNachfolger(Kunde nachfolger)
-    {
-        this.nachfolger = nachfolger;
-    }
+	//Methode gibt Referenz zum vorgaenger zur�ck
+	public Kunde getVorgaenger()
+	{
+		return vorgaenger;
+	}
 
-    public Kunde getNachfolger()
-    {
-        return nachfolger;
-    }
+	//Methode setzt Referenz auf den vorgaenger
+	public void setVorgaenger (Kunde vorgaenger)
+	{
+		this.vorgaenger = vorgaenger;
+	}
 
-    public int getUmsatz()
-    {
-        int umsatz = 0;
+	//Methode gibt Referenz zum Nachfolger zur�ck
+	public Kunde getNachfolger()
+	{
+		return nachfolger;
+	}
 
-        for (Bestellung bestellung : bestellungen)
-        {
-            umsatz += bestellung.getPreis();
-        }
-
-        return umsatz;
-    }
-
-    private List<Bestellung> bestellungen = new ArrayList<>();
-
-    public void addBestellung(Bestellung bestellung)
-    {
-        bestellungen.add(bestellung);
-    }
+	//Methode setzt Referenz auf den Nachfolger
+	public void setNachfolger (Kunde nachfolger)
+	{
+		this.nachfolger = nachfolger;
+	}
 }
